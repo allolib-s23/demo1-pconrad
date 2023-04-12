@@ -12,6 +12,8 @@
 #include "al/ui/al_Parameter.hpp"
 
 using namespace al;
+#include <iostream>
+using namespace std;
 
 // This example shows how to use SynthVoice and SynthManager to create an audio
 // visual synthesizer. In a class that inherits from SynthVoice you will
@@ -109,6 +111,8 @@ public:
                                 // will be using keyboard for note triggering
 
     // Set sampling rate for Gamma objects from app's audio
+    double frameRate = audioIO().framesPerSecond();
+    cout << "frameRate=" << frameRate << endl;
     gam::sampleRate(audioIO().framesPerSecond());
 
     imguiInit();
@@ -129,16 +133,16 @@ public:
     // The GUI is prepared here
     imguiBeginFrame();
     // Draw a window that contains the synth control panel
-    // synthManager.drawSynthControlPanel();
+    synthManager.drawSynthControlPanel();
     imguiEndFrame();
   }
- 
+
   // The graphics callback function.
   void onDraw(Graphics &g) override
   {
     g.clear();
     // Render the synth's graphics
-    //synthManager.render(g);
+    // synthManager.render(g);
 
     // GUI is drawn here
     imguiDraw();
@@ -180,7 +184,7 @@ public:
     int midiNote = asciiToMIDI(k.key());
     if (midiNote > 0)
     {
-      // synthManager.triggerOff(midiNote);
+      synthManager.triggerOff(midiNote);
     }
     return true;
   }
