@@ -15,6 +15,10 @@
 // using namespace gam;
 using namespace al;
 
+#include <iostream>
+using std::cout;
+using std::endl;
+
 // This example shows how to use SynthVoice and SynthManagerto create an audio
 // visual synthesizer. In a class that inherits from SynthVoice you will
 // define the synth's voice parameters and the sound and graphic generation
@@ -238,7 +242,8 @@ public:
   {
     auto *voice = synthManager.synth().getVoice<SquareWave>();
     // amp, freq, attack, release, pan
-    voice->setTriggerParams({amp, freq, 0.1, 0.1, 0.0});
+    std::vector< float > triggerParams = {amp, freq, 0.1, 0.1, 0.0};
+    voice->setTriggerParams(triggerParams);
     synthManager.synthSequencer().addVoiceFromNow(voice, time, duration);
   }
 
