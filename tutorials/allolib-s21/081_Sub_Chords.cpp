@@ -13,6 +13,8 @@
 #include "al/ui/al_ControlGUI.hpp"
 #include "al/ui/al_Parameter.hpp"
 
+#include <iostream>
+
 using namespace gam;
 using namespace al;
 using namespace std;
@@ -295,15 +297,18 @@ public:
             //   int presetNumber = asciiToIndex(k.key());
             //   synthManager.recallPreset(presetNumber);
             major = !major;
+            cout << "major: " << major << endl;
         }
         else if (k.alt())
         {
             seven = !seven;
+            cout << "seven: " << seven << endl;
         }
         else if (k.ctrl())
         {
             // std::cout<< "chords\n";
             chords = !chords;
+            cout << "chords: " << chords << endl;
         }
         else if (k.key() == 269)
         {
@@ -345,10 +350,9 @@ public:
                             noteOn(midiNote + 10);
                         }
                     }
-                    std::cout << "\n";
-
                     noteOn(midiNote + 7);
                 }
+                std::cout << "\n";
             }
         }
         return true;
@@ -384,8 +388,19 @@ public:
     void onExit() override { imguiShutdown(); }
 };
 
+void message_on_cout()
+{
+    cout << "This example plays either normal notes or chords" << endl
+         << endl
+         << "Press 'shift' to change between major and minor" << endl
+         << "Press 'alt' to change between normal and 7th" << endl
+         << "Press 'ctrl' to change between normal and chords" << endl
+         << endl;
+}
+
 int main()
 {
+    message_on_cout();
     MyApp app;
 
     // Set up audio
